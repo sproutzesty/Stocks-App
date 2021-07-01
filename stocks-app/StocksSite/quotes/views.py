@@ -13,8 +13,8 @@ def home(request):
         if request.method =='POST':
             ticker = request.POST['ticker']
             # pass in url that calls the api
-            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token=</your_api_key>")
-            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "</your_api_key>")
+            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token=")
+            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "pk_54efd22c45174b65b70f6bd56ff40fbb ")
 
             try:
                 api = json.loads(api_request.content)
