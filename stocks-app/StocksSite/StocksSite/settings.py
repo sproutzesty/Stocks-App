@@ -9,20 +9,24 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
-from pathlib import Path
+#from pandas import config
 import os
-SECRET_KEY = os.getenv("SECRET_KEY")
+from pathlib import Path
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8x=b#hz3&#b1v=c391f00j%p@w08v7n7ej(!ns(4_g0$4w(18g'
+SECRET_KEY = 'pk_54efd22c45174b65b70f6bd56ff40fbb'
+#SECRET_KEY = os.getenv('SECRET_KEY')
+#print("THIS IS MY SECRET KEY "+SECRET_KEY)
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
