@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect
 from .models import Stock
 from .forms import StockForm
 from django.contrib import messages
-from django.conf import settings
-MYKEY = getattr(settings, "SECRET_KEY")
+#from django.conf import settings
+from decouple import config
+#MYKEY = getattr(settings, "SECRET_KEY")
+SECRET_KEY = config ('SECRET_KEY')
 #print ("THIS IS MY SECRET KEY: "+MYKEY)
 # Create your views here.
 #Browser request for home page, pass into dict
@@ -16,9 +18,8 @@ def home(request):
             ticker = request.POST['ticker']
             # pass in url that calls the api
             #api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token=pk_54efd22c45174b65b70f6bd56ff40fbb")
-            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token="+MYKEY)
-		
-
+            api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token="+SECRET_KEY)
+			
             try:
                 api = json.loads(api_request.content)
             except Exception as e:
