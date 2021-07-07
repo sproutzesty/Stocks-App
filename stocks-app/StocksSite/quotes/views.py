@@ -6,7 +6,12 @@ from django.contrib import messages
 from decouple import config
 #MYKEY = getattr(settings, "SECRET_KEY")
 SECRET_KEY = config ('SECRET_KEY')
+NEWS_KEY=config ('NEWS_KEY')
 #print ("THIS IS MY SECRET KEY: "+MYKEY)
+from django.views.generic import View
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 # Create your views here.
 #Browser request for home page, pass into dict
 
@@ -17,8 +22,8 @@ def home(request):
         if request.method =='POST':
             ticker = request.POST['ticker']
             # pass in url that calls the api
-            #api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token=pk_54efd22c45174b65b70f6bd56ff40fbb")
             api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token="+SECRET_KEY)
+            #api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + ticker + "/quote?token="+SECRET_KEY)
 			
             try:
                 api = json.loads(api_request.content)
@@ -31,6 +36,30 @@ def home(request):
         else:
         
             return render(request, 'home.html', {'ticker': "Enter a Ticker Symbol Above..."})
+
+def buyStock(request):
+    	import requests
+        import json
+
+    	if api_request
+			
+			symbol=api.symbol
+			price= api.latestPrice
+			quantitiy= api.quantitiy
+			res= (input(setQuantity, init:{}))
+
+            try:
+                api = json.loads(api_request.content)
+			if 
+		let res= await fetch(input:'http:/localhost:8000/home', init:{
+			method:'POST'
+			body:JSON.stringify(body)
+		})
+		let data= await res.json()
+		console.log ('this is the data,' data )
+
+    	return render(request, 'about.html', {})
+
 
 def about(request):
     	return render(request, 'about.html', {})
@@ -47,6 +76,8 @@ def add_stock(request):
 			form.save()
 			messages.success(request, ("Stock has been added to your portfolio!"))				
 			return redirect('add_stock')
+		else:
+    			messages.error("Stock could not be added")
 
 	else:	
 		ticker = Stock.objects.all()
@@ -54,7 +85,7 @@ def add_stock(request):
 		output = []
 		# modify to pull multiple stock tickers at the same time
 		for ticker_item in ticker:
-			api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + str(ticker_item) + "/quote?token=</your_api_key>")
+			api_request = requests.get("https://cloud.iexapis.com/stable/stock/" + str(ticker_item) + "/quote?token="+SECRET_KEY)
 			try:
 				api = json.loads(api_request.content)
 				output.append(api)
@@ -68,20 +99,21 @@ def delete(request, stock_id):
 	item.delete()
 	messages.success(request, ("Stock Has Been Deleted From Portfolio!"))
 	return redirect(add_stock)
-	
+
 def news(request):
 	import requests
 	import json
 	
 	# News API
-	#api_request = requests.get('http://newsapi.org/v2/everything?q=stocks&apiKey=</your_api_key>')
+	#api_request = requests.get('http://newsapi.org/v2/everything?q=stocks&apiKey=</>')
 	
 	# BASIC - Stock News API
-	#api_request = requests.get('https://stocknewsapi.com/api/v1/category?section=general&items=50&token=</your_api_key>')
+	api_request = requests.get('https://stocknewsapi.com/api/v1/category?section=general&items=50&token='+NEWS_KEY)
 	
 	# PREMIUM - Stock News API
-	api_request = requests.get('https://stocknewsapi.com/api/v1/category?section=alltickers&items=50&token=</your_api_key>')
+	#api_request = requests.get('https://stocknewsapi.com/api/v1/category?section=alltickers&items=50&token='+ NEWS_KEY)
 	api = json.loads(api_request.content)
 	return render(request, 'news.html', {'api': api}) 
 	messages.success(request, ("Stock Has Been Deleted"))
 	return redirect(add_stock)
+

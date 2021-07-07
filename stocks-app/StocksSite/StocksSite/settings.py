@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 #SECRET_KEY = 'pk_54efd22c45174b65b70f6bd56ff40fbb'
 SECRET_KEY = config('SECRET_KEY')
-
+NEWS_KEY = config('NEWS_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'quotes',
     'rest_framework',
     'alpha_vantage',
+    'chart',
 ]
 
 MIDDLEWARE = [
